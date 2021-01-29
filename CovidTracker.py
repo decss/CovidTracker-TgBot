@@ -1,6 +1,5 @@
 import COVID19Py
 from countries import countries
-from datetime import datetime
 
 
 class CovidTracker:
@@ -14,8 +13,9 @@ class CovidTracker:
         # return covid19.getLocationByCountryCode(country, timelines=True)[0]
         return covid19.getLocationByCountryCode(country)[0]
 
-    def getData(self, country = 'world', format = 'json'):
+    def getData(self, country='world', format='json'):
         result = None
+        data = None
 
         if country == 'world':
             data = self.getWorldData()
@@ -30,32 +30,32 @@ class CovidTracker:
         return result
 
     def processCountryName(self, name):
-        name = self.toLowwer(name)
+        name = self.toLower(name)
         country = None
-        
+
         for row in countries:
-            if name == self.toLowwer(row['name']) or name == self.toLowwer(row['code']) or name in row['aliases']:
+            if name == self.toLower(row['name']) or name == self.toLower(row['code']) or name in row['aliases']:
                 country = row
                 break
 
         return country
 
-    def toLowwer(self, text):
+    def toLower(self, text):
         return text.strip().lower()
 
     def toText(self, data, country):
         if country == 'world':
-            result  = ('Подтверждено случаев: ' + str(self.fmtNum(data['confirmed'])) + '\n' 
-                    + 'Выздоровело: ' + str(self.fmtNum(data['recovered'])) + ' (не точно)\n' 
-                    + 'Смертей: ' + str(self.fmtNum(data['deaths'])) + '\n'
-            )
+            result = ('Подтверждено случаев: ' + str(self.fmtNum(data['confirmed'])) + '\n'
+                      + 'Выздоровело: ' + str(self.fmtNum(data['recovered'])) + ' (не точно)\n'
+                      + 'Смертей: ' + str(self.fmtNum(data['deaths'])) + '\n'
+                      )
         else:
-            result  = ('Всего случаев: ' + str(self.fmtNum(data['latest']['confirmed'])) + '\n' 
-                    + 'Выздоровело: ' + str(self.fmtNum(data['latest']['recovered'])) + ' (не точно)\n' 
-                    + 'Смертей: ' + str(self.fmtNum(data['latest']['deaths'])) + '\n'
-                    + 'Население: ' + str(self.fmtNum(data['country_population'])) + '\n'
-                    + 'Обновлено: ' + data['last_updated'][:10] + '\n'
-            )
+            result = ('Всего случаев: ' + str(self.fmtNum(data['latest']['confirmed'])) + '\n'
+                      + 'Выздоровело: ' + str(self.fmtNum(data['latest']['recovered'])) + ' (не точно)\n'
+                      + 'Смертей: ' + str(self.fmtNum(data['latest']['deaths'])) + '\n'
+                      + 'Население: ' + str(self.fmtNum(data['country_population'])) + '\n'
+                      + 'Обновлено: ' + data['last_updated'][:10] + '\n'
+                      )
 
         return result
 
