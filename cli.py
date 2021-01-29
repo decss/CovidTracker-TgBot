@@ -6,10 +6,13 @@ while not name:
     name = input('Введите название страны: ')
     tracker = CovidTracker()
 
+    if not name:
+        name = 'world'
+
     # World data
     if name == 'world':
-        data = tracker.getData('world', 'text')
         print('Данные по миру')
+        data = tracker.getData('world', 'text')
         print('------------------------------')
         print(data)
 
@@ -21,8 +24,8 @@ while not name:
             print('Страна "' + name + '" не найдена\n')
             name = None
         else:
-            data = tracker.getData(country['code'], 'text')
             print('Данные по стране "' + country['name'] + '":')
+            data = tracker.getData(country['code'], 'text')
             print('------------------------------')
             print(data)
 

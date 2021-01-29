@@ -1,5 +1,5 @@
 import COVID19Py
-from config import conf
+from countries import countries
 from datetime import datetime
 
 
@@ -11,6 +11,7 @@ class CovidTracker:
 
     def getCountryData(self, country):
         covid19 = COVID19Py.COVID19(url="https://cvtapi.nl")
+        # return covid19.getLocationByCountryCode(country, timelines=True)[0]
         return covid19.getLocationByCountryCode(country)[0]
 
     def getData(self, country = 'world', format = 'json'):
@@ -32,8 +33,8 @@ class CovidTracker:
         name = self.toLowwer(name)
         country = None
         
-        for row in conf['countries']:
-            if name == self.toLowwer(row['name']) or name in row['aliases']:
+        for row in countries:
+            if name == self.toLowwer(row['name']) or name == self.toLowwer(row['code']) or name in row['aliases']:
                 country = row
                 break
 
