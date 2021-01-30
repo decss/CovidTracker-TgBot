@@ -19,7 +19,6 @@ while not name:
     # Country data
     elif name:
         country = tracker.processCountryName(name)
-
         if not country:
             print('Страна "' + name + '" не найдена\n')
             name = None

@@ -3,15 +3,14 @@ from countries import countries
 
 
 class CovidTracker:
+    covid19 = COVID19Py.COVID19(url="https://cvtapi.nl")
 
     def getWorldData(self):
-        covid19 = COVID19Py.COVID19(url="https://cvtapi.nl")
-        return covid19.getLatest()
+        return self.covid19.getLatest()
 
     def getCountryData(self, country):
-        covid19 = COVID19Py.COVID19(url="https://cvtapi.nl")
-        # return covid19.getLocationByCountryCode(country, timelines=True)[0]
-        return covid19.getLocationByCountryCode(country)[0]
+        # return self.covid19.getLocationByCountryCode(country, timelines=True)[0]
+        return self.covid19.getLocationByCountryCode(country)[0]
 
     def getData(self, country='world', format='json'):
         result = None
@@ -46,12 +45,12 @@ class CovidTracker:
     def toText(self, data, country):
         if country == 'world':
             result = ('Подтверждено случаев: ' + str(self.fmtNum(data['confirmed'])) + '\n'
-                      + 'Выздоровело: ' + str(self.fmtNum(data['recovered'])) + ' (не точно)\n'
+                      # + 'Выздоровело: ' + str(self.fmtNum(data['recovered'])) + ' (не точно)\n'
                       + 'Смертей: ' + str(self.fmtNum(data['deaths'])) + '\n'
                       )
         else:
             result = ('Всего случаев: ' + str(self.fmtNum(data['latest']['confirmed'])) + '\n'
-                      + 'Выздоровело: ' + str(self.fmtNum(data['latest']['recovered'])) + ' (не точно)\n'
+                      # + 'Выздоровело: ' + str(self.fmtNum(data['latest']['recovered'])) + ' (не точно)\n'
                       + 'Смертей: ' + str(self.fmtNum(data['latest']['deaths'])) + '\n'
                       + 'Население: ' + str(self.fmtNum(data['country_population'])) + '\n'
                       + 'Обновлено: ' + data['last_updated'][:10] + '\n'
