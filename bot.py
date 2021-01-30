@@ -1,7 +1,6 @@
-import COVID19Py
 import telebot
 from config import conf
 
 
-
-bot = telebot.TeleBot(conf["TOKEN"], parse_mode=None)
+TOKEN = 'xxxx'
+bot = telebot.TeleBot(TOKEN, parse_mode=None)
