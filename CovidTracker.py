@@ -47,6 +47,7 @@ class CovidTracker:
             result = ('Подтверждено случаев: ' + str(self.fmtNum(data['confirmed'])) + '\n'
                       # + 'Выздоровело: ' + str(self.fmtNum(data['recovered'])) + ' (не точно)\n'
                       + 'Смертей: ' + str(self.fmtNum(data['deaths'])) + '\n'
+                      + 'Обновлено: ' + data['last_updated'][:10] + '\n'
                       )
         else:
             result = ('Всего случаев: ' + str(self.fmtNum(data['latest']['confirmed'])) + '\n'
