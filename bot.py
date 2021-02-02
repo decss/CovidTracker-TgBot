@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 from CovidTracker import CovidTracker
 
-TOKEN = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+TOKEN = '1602896092:AAG-1gj1jcPgRZB-OKLBSi--fmsbWweMq6w'
 bot = telebot.TeleBot(TOKEN)
 
 
