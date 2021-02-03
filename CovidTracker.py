@@ -44,7 +44,6 @@ class CovidTracker:
 
     def toText(self, data, country):
         if country == 'world':
-            print(data)
             result = ('Подтверждено случаев: ' + str(self.fmtNum(data['confirmed'])) + '\n'
                       # + 'Выздоровело: ' + str(self.fmtNum(data['recovered'])) + ' (не точно)\n'
                       + 'Смертей: ' + str(self.fmtNum(data['deaths'])) + '\n'
