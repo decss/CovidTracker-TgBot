@@ -18,7 +18,7 @@ def start(message):
     send_message = f"Привет <b>{message.from_user.first_name}</b>\n" \
                    f"Я бот <b>Covid Tracker</b> - слежу за данными по коронавирусу\n" \
                    f"Напиши страну или \"<b><code>В мире</code></b>\" и я расскажу, как там обстоят дела\n" \
-                   f"Источник данных: <i>JHU CSSE</i>" \
+                   f"Источник: <i>JHU CSSE</i>" \
                    # f"Вот некоторые полезные команды:\n" \
                    # f"/start - Приветствие\n" \
                    # f"/help - Помощь\n" \
