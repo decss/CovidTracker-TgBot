@@ -91,6 +91,5 @@ countries = [
     {"code": "EE", "name": "Эстония", "aliases": ["estonia"]},
     {"code": "ZA", "name": "ЮАР", "aliases": ["republic of south africa", "south africa", "южно-африканская республика", "южная южно-африканская"]},
     {"code": "JM", "name": "Ямайка", "aliases": ["jamaica"]},
-    {"code": "JPN", "name": "Япония", "aliases": ["japan"]},
     {"code": 'JP', "name": "Япония", "aliases": ["japan"]}
 ]

@@ -9,8 +9,11 @@ class CovidTracker:
         return self.covid19.getLatest()
 
     def getCountryData(self, country):
-        # return self.covid19.getLocationByCountryCode(country, timelines=True)[0]
-        return self.covid19.getLocationByCountryCode(country)[0]
+        try:
+            # return self.covid19.getLocationByCountryCode(country, timelines=True)[0]
+            return self.covid19.getLocationByCountryCode(country)[0]
+        except:
+            return None
 
     def getData(self, country='world', format='json'):
         result = None
@@ -21,10 +24,11 @@ class CovidTracker:
         elif country:
             data = self.getCountryData(country)
 
-        if format == 'json':
-            result = data
-        elif format == 'text':
-            result = self.toText(data, country)
+        if data:
+            if format == 'json':
+                result = data
+            elif format == 'text':
+                result = self.toText(data, country)
 
         return result
 
