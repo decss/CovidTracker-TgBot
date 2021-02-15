@@ -15,6 +15,13 @@ class CovidTracker:
         except:
             return None
 
+    def getCountriesList(self):
+        countriesList = []
+        for row in countries:
+            countriesList.append(row['name'])
+
+        return countriesList
+
     def getData(self, country='world', format='json'):
         result = None
         data = None
