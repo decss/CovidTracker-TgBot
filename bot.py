@@ -1,3 +1,4 @@
+import math
 import telebot
 from telebot import types
 from CovidTracker import CovidTracker
@@ -15,36 +16,69 @@ def start(message):
     btn4 = types.KeyboardButton('Украина')
     markup.add(btn1, btn2, btn3, btn4)
 
-    send_message = f"Привет <b>{message.from_user.first_name}</b>\n" \
-                   f"Я бот <b>Covid Tracker</b> - слежу за данными по коронавирусу\n" \
-                   f"Напиши страну или \"<b><code>В мире</code></b>\" и я расскажу, как там обстоят дела\n" \
-                   f"Источник: <i>JHU CSSE</i>" \
-                   # f"Вот некоторые полезные команды:\n" \
-                   # f"/start - Приветствие\n" \
-                   # f"/help - Помощь\n" \
-                   # f"/countries - Список стран, за которыми я слежу\n" \
+    replyMsg = f"Привет <b>{message.from_user.first_name}</b>\n" \
+               f"Я бот <b>Covid Tracker</b> - слежу за данными по коронавирусу.\n" \
+               f"\n<b>Как пользоваться</b>\n" \
+               f"Напиши название страны, к примеру <b>США</b> или <b>Германия</b>, " \
+               f"и я расскажу, как там обстоят дела. В ответ на <b>В мире</b> сообщу данные по всему миру. " \
+               f"Популярные страны видны на кнопках.\n" \
+               f"\n<b>Мои команды</b>\n" \
+               f"/start - вновь покажет это сообщение\n" \
+               f"/list  - список стран, за которыми я слежу\n" \
+               f"/info  - о точности, источниках и прочем\n" \
+               f"\n<i>Источник данных: JHU CSSE</i>"
+    bot.send_message(message.chat.id, replyMsg, parse_mode='html', reply_markup=markup)
 
-    bot.send_message(message.chat.id, send_message, parse_mode='html', reply_markup=markup)
 
-
-@bot.message_handler(commands=['help'])
+@bot.message_handler(commands=['info'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, "Это раздел помощи", parse_mode='html')
+    replyMsg = '<b>Источники</b>\n' \
+               'Основной источник данных - CSSE Data Repository at Johns Hopkins University, ' \
+               'который является репозиторием данных, предоставленных WHO, ECDC, US CDC и другими организациями.\n' \
+               '\n<b>Точность</b>\n' \
+               'По разным причинам не по всем странам есть возможность получить точные и актуальные данные, ' \
+               'и иногда возникает ситуация, когда для некоторых стран данные либо отсутствуют, ' \
+               'либо не актуальны.\n' \
+               '\n<b>Выбор страны</b>\n' \
+               'Страну можно выьрать несколькими способами:\n' \
+               '1. По названию на русском - <b>Япония</b>\n' \
+               '2. По английскому названию - <b>Japan</b>\n' \
+               '3. По двухбуквенному коду (ISO 3166) - <b>JP</b>\n' \
+               'Для некоторых стран существуют алиасы: <b>США</b>, <b>Америка</b>, <b>Соединенные Штаты</b> ' \
+               '- все это одна страна'
+    bot.send_message(message.chat.id, replyMsg, parse_mode='html')
 
 
-@bot.message_handler(commands=['countries'])
+@bot.message_handler(commands=['list'])
 def send_welcome(message):
-    bot.send_message(message.chat.id, "Список стран, за которыми я слежу:", parse_mode='html')
+    tracker = CovidTracker()
+    countriesList = tracker.getCountriesList()
+    height = math.ceil(len(countriesList) / 2)
+
+    i = 0
+    str = ''
+    while i < height:
+        str += "{:<16}".format(countriesList[i])
+        try:
+            str += countriesList[i + height]
+        except:
+            pass
+        str += '\n'
+        i += 1
+
+    replyMsg = '<b>Вот список стран, за которыми я слежу:</b>\n<pre>' + str + '</pre>'
+    bot.send_message(message.chat.id, replyMsg, parse_mode='html')
 
 
 @bot.message_handler(content_types=['text'])
 def mess(message):
     replyMsg = ""
     userText = message.text.strip().lower()
+    userText = userText.replace("ё", "е")
     tracker = CovidTracker()
 
     # World data
-    if userText in ['во всём мире', 'в мире', 'по всему миру', 'по миру', 'мир', 'world']:
+    if userText in ['во всем мире', 'в мире', 'по всему миру', 'по миру', 'мир', 'world']:
         data = tracker.getData('world', 'text')
         replyMsg += 'Данные по <b>всему миру</b>:\n' \
                     '<pre>-----------------------------------\n' \
