@@ -3,10 +3,19 @@ from countries import countries
 
 
 class CovidTracker:
-    covid19 = COVID19Py.COVID19(url="https://cvtapi.nl")
+    covid19 = None
+
+    def __init__(self):
+        try:
+            self.covid19 = COVID19Py.COVID19(url="https://cvtapi.nl")
+        except:
+            pass
 
     def getWorldData(self):
-        return self.covid19.getLatest()
+        try:
+            return self.covid19.getLatest()
+        except:
+            return None
 
     def getCountryData(self, country):
         try:
@@ -36,6 +45,8 @@ class CovidTracker:
                 result = data
             elif format == 'text':
                 result = self.toText(data, country)
+        else:
+            result = 'Данные не могут быть получены, попробуйте позже'
 
         return result
 
