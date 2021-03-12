@@ -16,17 +16,17 @@ def start(message):
     btn4 = types.KeyboardButton('Украина')
     markup.add(btn1, btn2, btn3, btn4)
 
-    replyMsg = "Привет <b>{message.from_user.first_name}</b>\n" \
-               "Я бот <b>Covid Tracker</b> - слежу за данными по коронавирусу.\n" \
-               "\n<b>Как пользоваться</b>\n" \
-               "Напиши название страны, к примеру <b>США</b> или <b>Германия</b>, " \
-               "и я расскажу, как там обстоят дела. В ответ на <b>В мире</b> сообщу данные по всему миру. " \
-               "Популярные страны видны на кнопках.\n" \
-               "\n<b>Мои команды</b>\n" \
-               "/start - вновь покажет это сообщение\n" \
-               "/list  - список стран, за которыми я слежу\n" \
-               "/info  - о точности, источниках и прочем\n" \
-               "\n<i>Источник данных: JHU CSSE</i>"
+    replyMsg = 'Привет <b>{message.from_user.first_name}</b>\n' \
+               'Я бот <b>Covid Tracker</b> - слежу за данными по коронавирусу.\n' \
+               '\n<b>Как пользоваться</b>\n' \
+               'Напиши название страны, к примеру <b>США</b> или <b>Германия</b>, ' \
+               'и я расскажу, как там обстоят дела. В ответ на <b>В мире</b> сообщу данные по всему миру. ' \
+               'Популярные страны видны на кнопках.\n' \
+               '\n<b>Мои команды</b>\n' \
+               '/start - вновь покажет это сообщение\n' \
+               '/list  - список стран, за которыми я слежу\n' \
+               '/info  - о точности, источниках и прочем\n' \
+               '\n<i>Источник данных: JHU CSSE</i>'
     bot.send_message(message.chat.id, replyMsg, parse_mode='html', reply_markup=markup)
 
 
@@ -72,9 +72,9 @@ def send_welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def mess(message):
-    replyMsg = ""
+    replyMsg = ''
     userText = message.text.strip().lower()
-    userText = userText.replace("ё", "е")
+    userText = userText.replace('ё', 'е')
     tracker = CovidTracker()
 
     # World data
@@ -100,7 +100,7 @@ def mess(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
-    bot.reply_to(message, "Не пойму что это значит")
+    bot.reply_to(message, 'Не пойму что это значит')
 
 
 bot.polling(none_stop=True)

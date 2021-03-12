@@ -5,7 +5,7 @@ from countries import countries
 # from requests import Session
 # import functools
 # session = Session()
-# for method in ("get", "options", "head", "post", "put", "patch", "delete"):
+# for method in ('get', 'options', 'head', 'post', 'put', 'patch', 'delete'):
 #     setattr(
 #         session,
 #         method,
@@ -18,7 +18,7 @@ class CovidTracker:
 
     def __init__(self):
         try:
-            self.covid19 = COVID19Py.COVID19(url="https://cvtapi.nl")
+            self.covid19 = COVID19Py.COVID19(url='https://cvtapi.nl')
         except:
             pass
 
