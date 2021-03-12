@@ -2,6 +2,17 @@ import COVID19Py
 from countries import countries
 
 
+# from requests import Session
+# import functools
+# session = Session()
+# for method in ("get", "options", "head", "post", "put", "patch", "delete"):
+#     setattr(
+#         session,
+#         method,
+#         functools.partial(getattr(session, method), timeout=1),
+#     )
+
+
 class CovidTracker:
     covid19 = None
 

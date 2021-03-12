@@ -5,7 +5,7 @@
 Telegram Bot and cli tool written on Python for tracking statistics of coronavirus cases by countries or around the world. 
 
 ## Requirements
-    python >= 3.6
+    python >= 3.5
 Required dependencies can be found in `requirements.txt` 
 
 ## Example
