@@ -16,7 +16,7 @@ def start(message):
     btn4 = types.KeyboardButton('Украина')
     markup.add(btn1, btn2, btn3, btn4)
 
-    replyMsg = 'Привет <b>{message.from_user.first_name}</b>\n' \
+    replyMsg = 'Привет <b>' + message.from_user.first_name + '</b>\n' \
                'Я бот <b>Covid Tracker</b> - слежу за данными по коронавирусу.\n' \
                '\n<b>Как пользоваться</b>\n' \
                'Напиши название страны, к примеру <b>США</b> или <b>Германия</b>, ' \
@@ -53,18 +53,39 @@ def send_welcome(message):
 def send_welcome(message):
     tracker = CovidTracker()
     countriesList = tracker.getCountriesList()
+
+    # Long names
+    countriesLongList = [];
+    for name in countriesList:
+        if len(name) > 18:
+            countriesLongList.append(name)
+            countriesList.remove(name)
+
     height = math.ceil(len(countriesList) / 2)
 
     i = 0
     str = ''
     while i < height:
-        str += "{:<16}".format(countriesList[i])
+        if len(countriesList[i]) < 18:
+            pad = 0
+        else:
+            pad = 1
+
+        str += "{:<18}".format(countriesList[i])
+
+        if pad:
+            str += '\n'
         try:
+            if pad:
+                str += "{:<18}".format(' ')
             str += countriesList[i + height]
         except:
             pass
         str += '\n'
         i += 1
+
+    for name in countriesLongList:
+        str += name + '\n'
 
     replyMsg = '<b>Вот список стран, за которыми я слежу:</b>\n<pre>' + str + '</pre>'
     bot.send_message(message.chat.id, replyMsg, parse_mode='html')
