@@ -18,7 +18,8 @@ class CovidTracker:
 
     def __init__(self):
         try:
-            self.covid19 = COVID19Py.COVID19(url='https://cvtapi.nl')
+            # self.covid19 = COVID19Py.COVID19(url='https://cvtapi.nl')
+            self.covid19 = COVID19Py.COVID19()
         except:
             pass
 

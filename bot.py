@@ -102,7 +102,7 @@ def mess(message):
     if userText in ['во всем мире', 'в мире', 'по всему миру', 'по миру', 'мир', 'world']:
         data = tracker.getData('world', 'text')
         replyMsg += 'Данные по <b>всему миру</b>:\n' \
-                    '<pre>-----------------------------------\n' \
+                    '<pre>--------------------------------\n' \
                     + data + '</pre>'
 
     # Country data
@@ -113,7 +113,7 @@ def mess(message):
         else:
             data = tracker.getData(country['code'], 'text')
             replyMsg = 'Данные по стране <b>' + country['name'] + '</b>:\n' \
-                       '<pre>-----------------------------------\n' \
+                       '<pre>--------------------------------\n' \
                        + data + '</pre>'
 
     bot.send_message(message.chat.id, replyMsg, parse_mode='html')
